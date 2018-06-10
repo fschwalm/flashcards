@@ -24,6 +24,7 @@ class Deck extends React.Component {
   }
 
   handleAddCard() {
+    this.props.navigation.navigate('NewCard', {deck: this.state.deck})
     //
   }
 

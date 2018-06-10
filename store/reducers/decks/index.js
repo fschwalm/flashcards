@@ -39,6 +39,18 @@ const decksReducer = (state = initialState, action) => {
         },
       };
 
+    case actionTypes.ADD_CARD_TO_DECK_SUCCESS:
+      return {
+        ...state,
+        decks: {
+          ...state.decks,
+          [action.payload.deckTitle]: {
+            ...state.decks[action.payload.deckTitle],
+            questions: [...state.decks[action.payload.deckTitle].questions, action.payload.card],
+          },
+        },
+      };
+
     default:
       return state;
   }

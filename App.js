@@ -7,6 +7,7 @@ import FlashCardsStatusBar from './components/FlashCardsStatusBar';
 import Tabs from './components/Tabs';
 import Deck from './components/Deck';
 import configureStore from './store';
+import NewCard from './Views/NewCard';
 
 const MainNavigator = createStackNavigator({
   Home: {
@@ -19,6 +20,16 @@ const MainNavigator = createStackNavigator({
   Deck: {
     screen: Deck,
     navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: blue,
+      },
+    },
+  },
+  NewCard: {
+    screen: NewCard,
+    navigationOptions: {
+      headerTitle: 'Add Card',
       headerTintColor: white,
       headerStyle: {
         backgroundColor: blue,

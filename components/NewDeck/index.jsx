@@ -44,7 +44,7 @@ class NewDeck extends React.Component {
             placeholder="Deck Title"
             onChangeText={title => this.setState({ title })}
           />
-          <Button title="Add Card" onPress={this.handleAddDeck} />
+          <Button title="Add Deck" onPress={this.handleAddDeck} />
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
     );

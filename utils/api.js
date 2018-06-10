@@ -13,7 +13,7 @@ const persistDeck = async deck =>
     FLASHCARDS_STORAGE_KEY,
     JSON.stringify(deck),
   );
-const addCardToDeck = (deckTitle, card) =>
+const saveCardToDeck = (card, deckTitle) =>
   getDeck(deckTitle).then((deck) => {
     deck.questions.push(card);
     AsyncStorage.mergeItem(
@@ -24,4 +24,4 @@ const addCardToDeck = (deckTitle, card) =>
     );
   });
 
-export { getDecks, getDeck, persistDeck, addCardToDeck };
+export { getDecks, getDeck, persistDeck, saveCardToDeck };

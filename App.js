@@ -1,23 +1,41 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from 'react-native';
+import { Provider } from 'react-redux';
+import { createStackNavigator } from 'react-navigation';
+import { purple, blue, white } from './utils/colors';
+import FlashCardsStatusBar from './components/FlashCardsStatusBar';
+import Tabs from './components/Tabs';
+import Deck from './components/Deck';
+import configureStore from './store';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const MainNavigator = createStackNavigator({
+  Home: {
+    screen: Tabs,
+    navigationOptions: {
+      headerTitle: 'FlashCards',
+      headerTintColor: blue,
+    },
+  },
+  Deck: {
+    screen: Deck,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: blue,
+      },
+    },
   },
 });
+
+const store = configureStore();
+
+const App = () => (
+  <Provider store={store}>
+    <View style={{ flex: 1 }}>
+      <FlashCardsStatusBar backgroundColor={purple} barStyle="light-content" />
+      <MainNavigator />
+    </View>
+  </Provider>
+);
+
+export default App;

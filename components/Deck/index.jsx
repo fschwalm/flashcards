@@ -27,11 +27,9 @@ class Deck extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>{this.props.selectedDeck.title}</Text>
-        {this.props.selectedDeck.questions && (
-          <Text>{this.props.selectedDeck.questions.length} cards</Text>
-        )}
+        <Text>{this.props.selectedDeck.questions.length} cards</Text>
         <Button title="Add Card" onPress={this.handleAddCard} />
-        <Button title="Start Quiz" onPress={this.handleStartQuiz} />
+        <Button disabled={this.props.selectedDeck.questions.length < 1} title="Start Quiz" onPress={this.handleStartQuiz} />
       </View>
     );
   }

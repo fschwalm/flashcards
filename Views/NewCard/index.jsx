@@ -29,22 +29,25 @@ class NewCard extends React.Component {
   }
 
   render() {
+    const { question, answer } = this.state;
+    const isValid = question && answer;
+
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <KeyboardAvoidingView behavior="padding" style={styles.container}>
           <TextInput
-            value={this.state.question}
+            value={question}
             style={styles.input}
             placeholder="Question"
-            onChangeText={question => this.setState({ question })}
+            onChangeText={text => this.setState({ question: text })}
           />
           <TextInput
-            value={this.state.answer}
+            value={answer}
             style={styles.input}
             placeholder="Answer"
-            onChangeText={answer => this.setState({ answer })}
+            onChangeText={text => this.setState({ answer: text })}
           />
-          <Button title="Add Card" onPress={this.handleAddCard} />
+          <Button disabled={!isValid} title="Add Card" onPress={this.handleAddCard} />
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
     );

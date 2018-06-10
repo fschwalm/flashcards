@@ -1,3 +1,3 @@
-import { listDecks } from './list';
+export { listDecks } from './list';
 
 export { createDeck } from './create';

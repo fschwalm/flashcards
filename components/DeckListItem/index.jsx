@@ -3,13 +3,13 @@ import { View, TouchableOpacity, Text, StyleSheet, Platform } from 'react-native
 import { orange, white, gray } from '../../utils/colors';
 
 class DeckListItem extends React.Component {
-  onPressItem(deck) {
-    this.props.navigation.navigate('Deck', { deck: this.props.deck });
+  onPressItem() {
+    this.props.navigation.navigate('Deck', { deckTitle: this.props.deck.title });
   }
 
   render() {
     return (
-      <TouchableOpacity onPress={() => this.onPressItem(this.props.deck)}>
+      <TouchableOpacity onPress={() => this.onPressItem()}>
         {this.props.deck.questions && (
           <View style={styles.deck}>
             <Text style={{ color: orange, fontSize: 20 }}>{this.props.deck.title}</Text>

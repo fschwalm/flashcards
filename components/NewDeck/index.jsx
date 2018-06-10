@@ -19,17 +19,15 @@ class NewDeck extends React.Component {
     this.handleAddDeck = this.handleAddDeck.bind(this);
   }
 
-  handleAddDeck() {
+  async handleAddDeck() {
     if (this.state.title) {
       const deck = {
-        [this.state.title]: {
-          ...this.state,
-          questions: [],
-        },
+        ...this.state,
+        questions: [],
       };
-      this.props.onCreateDeck(deck);
+      await this.props.onCreateDeck({ [this.state.title]: deck });
       this.setState({ title: '' });
-      this.props.navigation.goBack();
+      this.props.navigation.navigate('Deck', { deckTitle: deck.title });
     }
   }
 

@@ -1,21 +1,24 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
-import { gray } from '../../utils/colors';
+import { connect } from 'react-redux';
+import { View, Text, Button } from 'react-native';
 import ProgressHeader from './ProgressHeader';
 
 const getCorrectAnswers = score => score.filter(s => s === true);
 
 const getPercentage = score => ((getCorrectAnswers(score).length / score.length) * 100).toFixed(2);
 
+const initialState = {
+  questionIndex: 1,
+  score: [],
+  showAnswer: false,
+  isFinished: false,
+};
+
 class Quiz extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      deck: {},
-      questionIndex: 1,
-      score: [],
-      showAnswer: false,
-      isFinished: false,
+      ...initialState,
     };
     this.handleAnswer = this.handleAnswer.bind(this);
     this.nextQuestion = this.nextQuestion.bind(this);
@@ -27,18 +30,12 @@ class Quiz extends React.Component {
     this.restartQuiz = this.restartQuiz.bind(this);
   }
 
-  componentDidMount() {
-    console.log('ahah');
-    const deck = this.props.navigation.state.params.deck;
-    this.setState({ deck });
-  }
-
   getNextQuestion() {
-    return this.state.deck.questions[this.state.questionIndex - 1];
+    return this.props.deck.questions[this.state.questionIndex - 1];
   }
 
   hasNextQuestion() {
-    return this.state.questionIndex <= this.state.deck.questions.length;
+    return this.state.questionIndex <= this.props.deck.questions.length;
   }
 
   nextQuestion() {
@@ -69,17 +66,14 @@ class Quiz extends React.Component {
 
   restartQuiz() {
     this.setState({
-      questionIndex: 1,
-      score: [],
-      showAnswer: false,
-      isFinished: false,
+      ...initialState,
     });
   }
 
   render() {
     let currentQuestion;
 
-    if (!this.state.deck.questions) {
+    if (!this.props.deck.questions) {
       return (
         <View>
           <Text>loading...</Text>
@@ -106,7 +100,7 @@ class Quiz extends React.Component {
       return (
         <View>
           <ProgressHeader
-            questionsSize={this.state.deck.questions.length}
+            questionsSize={this.props.deck.questions.length}
             currentQuestionIndex={this.state.questionIndex}
           />
           <Text>{currentQuestion.answer}</Text>
@@ -123,7 +117,7 @@ class Quiz extends React.Component {
     return (
       <View>
         <ProgressHeader
-          questionsSize={this.state.deck.questions.length}
+          questionsSize={this.props.deck.questions.length}
           currentQuestionIndex={this.state.questionIndex}
         />
         <Text>{currentQuestion.question}</Text>
@@ -133,23 +127,8 @@ class Quiz extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    padding: 10,
-  },
-  title: {
-    fontSize: 20,
-  },
-  input: {
-    width: 200,
-    height: 44,
-    padding: 8,
-    borderWidth: 1,
-    borderColor: gray,
-  },
+const mapStateToProps = (state, ownProps) => ({
+  deck: state.decks[ownProps.navigation.state.params.deckTitle],
 });
 
-export default Quiz;
+export default connect(mapStateToProps)(Quiz);

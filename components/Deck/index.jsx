@@ -1,42 +1,34 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 
 class Deck extends React.Component {
-
-  static navigationOptions = ({navigation}) => {
+  static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.state.params.deck.title
-    }
-  }
+      title: navigation.state.params.deckTitle,
+    };
+  };
 
   constructor(props) {
     super(props);
-    this.state = {
-      deck: {},
-    };
     this.handleAddCard = this.handleAddCard.bind(this);
     this.handleStartQuiz = this.handleStartQuiz.bind(this);
   }
 
-  componentDidMount() {
-    const deck = this.props.navigation.state.params.deck;
-    this.setState({ deck });
-  }
-
   handleAddCard() {
-    this.props.navigation.navigate('NewCard', {deck: this.state.deck})
+    this.props.navigation.navigate('NewCard', { deckTitle: this.props.selectedDeck.title });
   }
 
   handleStartQuiz() {
-    this.props.navigation.navigate('Quiz', {deck: this.state.deck})
+    this.props.navigation.navigate('Quiz', { deckTitle: this.props.selectedDeck.title });
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>{this.state.deck.title}</Text>
-        {this.state.deck.questions && (
-          <Text>{this.state.deck.questions.length} cards</Text>
+        <Text style={styles.title}>{this.props.selectedDeck.title}</Text>
+        {this.props.selectedDeck.questions && (
+          <Text>{this.props.selectedDeck.questions.length} cards</Text>
         )}
         <Button title="Add Card" onPress={this.handleAddCard} />
         <Button title="Start Quiz" onPress={this.handleStartQuiz} />
@@ -56,4 +48,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Deck;
+const mapStateToProps = (state, ownProps) => ({
+  selectedDeck: state.decks[ownProps.navigation.state.params.deckTitle],
+});
+
+export default connect(mapStateToProps)(Deck);

@@ -22,8 +22,8 @@ class NewCard extends React.Component {
   }
 
   handleAddCard() {
-    const deck = this.props.navigation.state.params.deck;
-    this.props.onAddCardToDeck({ ...this.state }, deck.title);
+    const deckTitle = this.props.navigation.state.params.deckTitle;
+    this.props.onAddCardToDeck({ ...this.state }, deckTitle);
     this.setState({ question: '', answer: '' });
     this.props.navigation.goBack();
   }

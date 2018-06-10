@@ -8,6 +8,7 @@ import Tabs from './components/Tabs';
 import Deck from './components/Deck';
 import configureStore from './store';
 import NewCard from './Views/NewCard';
+import Quiz from './Views/Quiz';
 
 const MainNavigator = createStackNavigator({
   Home: {
@@ -30,6 +31,16 @@ const MainNavigator = createStackNavigator({
     screen: NewCard,
     navigationOptions: {
       headerTitle: 'Add Card',
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: blue,
+      },
+    },
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      headerTitle: 'Quiz',
       headerTintColor: white,
       headerStyle: {
         backgroundColor: blue,

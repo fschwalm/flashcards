@@ -25,21 +25,21 @@ class Deck extends React.Component {
 
   handleAddCard() {
     this.props.navigation.navigate('NewCard', {deck: this.state.deck})
-    //
   }
 
   handleStartQuiz() {
-    //
+    this.props.navigation.navigate('Quiz', {deck: this.state.deck})
   }
 
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>{this.state.deck.title}</Text>
+        {this.state.deck.questions && (
+          <Text>{this.state.deck.questions.length} cards</Text>
+        )}
         <Button title="Add Card" onPress={this.handleAddCard} />
         <Button title="Start Quiz" onPress={this.handleStartQuiz} />
-
-        <Button title="Back" onPress={() => this.props.navigation.goBack()} />
       </View>
     );
   }

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Button } from 'react-native';
 import ProgressHeader from './ProgressHeader';
+import { clearLocalNotification, setLocalNotification } from '../../utils/notifications';
 
 const getCorrectAnswers = score => score.filter(s => s === true);
 
@@ -49,6 +50,7 @@ class Quiz extends React.Component {
 
   finishQuiz() {
     this.setState({ isFinished: true });
+    clearLocalNotification().then(setLocalNotification());
   }
 
   showAnswer() {

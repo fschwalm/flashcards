@@ -9,6 +9,7 @@ import Deck from './components/Deck';
 import configureStore from './store';
 import NewCard from './Views/NewCard';
 import Quiz from './Views/Quiz';
+import { setLocalNotification } from './utils/notifications';
 
 const MainNavigator = createStackNavigator({
   Home: {
@@ -51,13 +52,22 @@ const MainNavigator = createStackNavigator({
 
 const store = configureStore();
 
-const App = () => (
-  <Provider store={store}>
-    <View style={{ flex: 1 }}>
-      <FlashCardsStatusBar backgroundColor={purple} barStyle="light-content" />
-      <MainNavigator />
-    </View>
-  </Provider>
-);
+
+class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
+
+  render() {
+    return (
+      <Provider store={store}>
+        <View style={{ flex: 1 }}>
+          <FlashCardsStatusBar backgroundColor={purple} barStyle="light-content" />
+          <MainNavigator />
+        </View>
+      </Provider>
+    );
+  }
+}
 
 export default App;

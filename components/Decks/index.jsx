@@ -4,23 +4,12 @@ import { View, FlatList, Text } from 'react-native';
 import DeckListItem from '../DeckListItem';
 import { listDecks } from '../../store/actions/decks/list';
 
-const decks = [
-  { id: '1', createdAt: '2018-06-09T19:26:51.109Z', name: 'React' },
-  { id: '2', createdAt: '2018-06-09T19:26:51.109Z', name: 'Redux' },
-  { id: '3', createdAt: '2018-06-09T19:26:51.109Z', name: 'React Native' },
-  { id: '4', createdAt: '2018-06-09T19:26:51.109Z', name: 'GraphQL' },
-  { id: '5', createdAt: '2018-06-09T19:26:51.109Z', name: 'Apollo' },
-  { id: '6', createdAt: '2018-06-09T19:26:51.109Z', name: 'React Navigation' },
-  { id: '7', createdAt: '2018-06-09T19:26:51.109Z', name: 'Redux Saga' },
-];
-
 const keyExtractor = item => item.title;
 
 class Decks extends React.Component {
   async componentDidMount() {
     this.props.onListDecks();
   }
-
 
   render() {
     let values = [];

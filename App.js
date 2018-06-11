@@ -54,7 +54,7 @@ const store = configureStore();
 
 
 class App extends React.Component {
-  componentDidMount() {
+  async componentDidMount() {
     setLocalNotification();
   }
 

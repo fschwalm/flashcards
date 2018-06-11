@@ -31,6 +31,10 @@ class Quiz extends React.Component {
     this.restartQuiz = this.restartQuiz.bind(this);
   }
 
+  async componentDidMount() {
+    clearLocalNotification().then(setLocalNotification());
+  }
+
   getNextQuestion() {
     return this.props.deck.questions[this.state.questionIndex - 1];
   }
@@ -50,7 +54,6 @@ class Quiz extends React.Component {
 
   finishQuiz() {
     this.setState({ isFinished: true });
-    clearLocalNotification().then(setLocalNotification());
   }
 
   showAnswer() {
